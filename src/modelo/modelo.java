@@ -61,7 +61,7 @@ public class modelo {
 	public void conectarse() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String mi_url = "jdbc:oracle:thin:@" + geturlBBDD() + ":1521:XE";
+			String mi_url = geturlBBDD();
 
 			conexion = DriverManager.getConnection(mi_url, getUsuarioBBDD(), getContraseñaBBDD());
 			System.out.println("exito en la conexión");
@@ -168,7 +168,7 @@ public class modelo {
 		conectarse();
 		this.Nombre = usuario;
 		this.Pass = contrasena;
-		Select("select * from proyecto.usuarios where nick='" + usuario + "' and password='" + contrasena + "'");
+		Select("select * from entornos.admin where nick='" + usuario + "' and password='" + contrasena + "'");
 
 		try {
 			if (comprobarnick.equals(usuario) && comprobarpass.equals(contrasena)) {
