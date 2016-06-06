@@ -107,7 +107,7 @@ public class login extends JFrame {
 		passwordField = new JPasswordField();
 
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(login.class.getResource("/imagenes/ICON.png")));
+		lblNewLabel.setIcon(new ImageIcon(login.class.getResource("/imagenes/libros-de-la-biblioteca-icono-5623-48.png")));
 
 		btnConfiguracion = new JButton("configuraci\u00F3n");
 		btnConfiguracion.addActionListener(new ActionListener() {

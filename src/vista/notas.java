@@ -52,7 +52,6 @@ public class notas extends JFrame {
 	private JTextField txtexpalumno;
 	private JTextField txtnomalumno;
 	private JTextField txtcorreo;
-	private JPasswordField passalumn;
 	private JButton btnAnadiralumno;
 	private JButton btnModificaralumn;
 	private JTextField txtexp;
@@ -82,7 +81,6 @@ public class notas extends JFrame {
 	private String expalumno;
 	private String nomalumno;
 	private String correoalumno;
-	private String passalumno;
 	private String expmod;
 	private String notamod;
 	private String cursomod;
@@ -104,11 +102,10 @@ public class notas extends JFrame {
 		this.correoprofe = correoprofe;
 	}
 
-	private void setalumno(String expalumno, String nomalumno, String correoalumno, String passalumno) {
+	private void setalumno(String expalumno, String nomalumno, String correoalumno) {
 		this.expalumno = expalumno;
 		this.nomalumno = nomalumno;
 		this.correoalumno = correoalumno;
-		this.passalumno = passalumno;
 	}
 
 	private void setnotamod(String expmod, String notamod, String cursomod, String nommod) {
@@ -365,10 +362,38 @@ public class notas extends JFrame {
 		txtcorreoprof.setColumns(10);
 
 		btnanadirprofe = new JButton("A\u00F1adir");
+		btnanadirprofe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Object[] fila = { txtexprof.getText(), txtnomprofe.getText(), txtcorreoprof.getText() };
+				dtmprofesores.addRow(fila);
+				setprofesor(txtexprof.getText(), txtnomprofe.getText(), txtcorreoprof.getText());
+				txtexprof.setText("");
+				txtnomprofe.setText("");
+				txtcorreoprof.setText("");
+			}
+		});
 
 		JButton btnModificarprofe = new JButton("Modificar");
+		btnModificarprofe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tablaprofesor.setValueAt(txtexprof.getText(), tablaprofesor.getSelectedRow(), 0);
+				tablaprofesor.setValueAt(txtnomprofe.getText(), tablaprofesor.getSelectedRow(), 1);
+				tablaprofesor.setValueAt(txtcorreoprof.getText(), tablaprofesor.getSelectedRow(), 2);
+				txtcurso.setText("");
+				txtnombremodulo.setText("");
+				txthoras.setText("");
+			}
+		});
 
 		JButton btnBorrarprofe = new JButton("Borrar");
+		btnBorrarprofe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dtmprofesores.removeRow(tablaprofesor.getSelectedRow());
+				txtcurso.setText("");
+				txtnombremodulo.setText("");
+				txthoras.setText("");
+			}
+		});
 		GroupLayout gl_panelprofesores = new GroupLayout(panelprofesores);
 		gl_panelprofesores.setHorizontalGroup(gl_panelprofesores.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelprofesores.createSequentialGroup().addGroup(gl_panelprofesores
@@ -452,66 +477,105 @@ public class notas extends JFrame {
 		txtcorreo = new JTextField();
 		txtcorreo.setColumns(10);
 
-		JLabel lblContraseaAlumno = new JLabel("Contrase\u00F1a alumno");
-
-		passalumn = new JPasswordField();
-
 		btnAnadiralumno = new JButton("A\u00F1adir");
+		btnAnadiralumno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object[] fila = { txtexpalumno.getText(), txtnomalumno.getText(), txtcorreo.getText() };
+				dtmalumnos.addRow(fila);
+				setalumno(txtexpalumno.getText(), txtnomalumno.getText(), txtcorreo.getText());
+				txtexpalumno.setText("");
+				txtnomalumno.setText("");
+				txtcorreo.setText("");
+			}
+		});
 
 		btnModificaralumn = new JButton("Modificar");
+		btnModificaralumn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tablalumnos.setValueAt(txtexpalumno.getText(), tablalumnos.getSelectedRow(), 0);
+				tablalumnos.setValueAt(txtnomalumno.getText(), tablalumnos.getSelectedRow(), 1);
+				tablalumnos.setValueAt(txtcorreo.getText(), tablalumnos.getSelectedRow(), 2);
+				txtexpalumno.setText("");
+				txtnomalumno.setText("");
+				txtcorreo.setText("");
+			}
+		});
 
 		JButton btnBorraralumn = new JButton("Borrar");
+		btnBorraralumn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dtmalumnos.removeRow(tablalumnos.getSelectedRow());
+				txtexpalumno.setText("");
+				txtnomalumno.setText("");
+				txtcorreo.setText("");
+			}
+		});
 		GroupLayout gl_panelalumnos = new GroupLayout(panelalumnos);
 		gl_panelalumnos
-				.setHorizontalGroup(gl_panelalumnos.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelalumnos.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panelalumnos.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panelalumnos.createSequentialGroup().addComponent(
-												scrollPane_2, GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
-												.addContainerGap())
-										.addGroup(gl_panelalumnos.createSequentialGroup()
-												.addGroup(gl_panelalumnos.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblIntroduzcaNumeroExpediente)
-														.addComponent(txtexpalumno, GroupLayout.PREFERRED_SIZE, 138,
-																GroupLayout.PREFERRED_SIZE))
-												.addGap(36)
-												.addGroup(gl_panelalumnos.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblIntroduzcaNombreY).addComponent(txtnomalumno,
-																GroupLayout.PREFERRED_SIZE, 206,
-																GroupLayout.PREFERRED_SIZE))
-												.addGap(41)
-												.addGroup(gl_panelalumnos.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblCorreoAlumno).addComponent(txtcorreo,
-																GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE))
-												.addGap(40)
-												.addGroup(gl_panelalumnos.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblContraseaAlumno).addComponent(passalumn,
-																GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-												.addContainerGap(93, Short.MAX_VALUE))))
-						.addGroup(gl_panelalumnos.createSequentialGroup().addGap(222).addComponent(btnAnadiralumno)
-								.addGap(18).addComponent(btnModificaralumn).addGap(18).addComponent(btnBorraralumn)
-								.addContainerGap(340, Short.MAX_VALUE)));
-		gl_panelalumnos.setVerticalGroup(gl_panelalumnos.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelalumnos.createSequentialGroup().addContainerGap()
-						.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addGroup(gl_panelalumnos.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblIntroduzcaNumeroExpediente).addComponent(lblIntroduzcaNombreY)
-								.addComponent(lblCorreoAlumno).addComponent(lblContraseaAlumno))
-						.addGap(18)
-						.addGroup(gl_panelalumnos.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtexpalumno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtnomalumno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtcorreo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(passalumn, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-						.addGroup(gl_panelalumnos.createParallelGroup(Alignment.BASELINE).addComponent(btnAnadiralumno)
-								.addComponent(btnModificaralumn).addComponent(btnBorraralumn))
-						.addContainerGap()));
+				.setHorizontalGroup(gl_panelalumnos.createParallelGroup(Alignment.LEADING).addGroup(
+						gl_panelalumnos
+								.createSequentialGroup()
+								.addGroup(gl_panelalumnos.createParallelGroup(Alignment.LEADING).addGroup(
+										gl_panelalumnos.createSequentialGroup().addContainerGap().addGroup(
+												gl_panelalumnos
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 805,
+																Short.MAX_VALUE)
+														.addGroup(
+																gl_panelalumnos.createSequentialGroup()
+																		.addGroup(gl_panelalumnos
+																				.createParallelGroup(Alignment.LEADING)
+																				.addComponent(
+																						lblIntroduzcaNumeroExpediente)
+																				.addComponent(txtexpalumno,
+																						GroupLayout.PREFERRED_SIZE, 138,
+																						GroupLayout.PREFERRED_SIZE))
+																		.addGap(74)
+																		.addGroup(gl_panelalumnos
+																				.createParallelGroup(Alignment.LEADING)
+																				.addComponent(txtnomalumno,
+																						GroupLayout.PREFERRED_SIZE, 206,
+																						GroupLayout.PREFERRED_SIZE)
+																				.addComponent(lblIntroduzcaNombreY))
+																		.addPreferredGap(
+																				ComponentPlacement.RELATED, 129,
+																				Short.MAX_VALUE)
+																		.addGroup(gl_panelalumnos
+																				.createParallelGroup(Alignment.LEADING)
+																				.addComponent(txtcorreo,
+																						GroupLayout.PREFERRED_SIZE, 187,
+																						GroupLayout.PREFERRED_SIZE)
+																				.addComponent(lblCorreoAlumno))
+																		.addGap(49))))
+										.addGroup(gl_panelalumnos.createSequentialGroup().addGap(222)
+												.addComponent(btnAnadiralumno).addGap(18)
+												.addComponent(btnModificaralumn).addGap(18)
+												.addComponent(btnBorraralumn)))
+								.addContainerGap()));
+		gl_panelalumnos
+				.setVerticalGroup(
+						gl_panelalumnos.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelalumnos.createSequentialGroup().addContainerGap()
+										.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 238,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addGroup(gl_panelalumnos.createParallelGroup(Alignment.BASELINE)
+												.addComponent(lblIntroduzcaNumeroExpediente)
+												.addComponent(lblCorreoAlumno).addComponent(lblIntroduzcaNombreY))
+										.addGap(18)
+										.addGroup(gl_panelalumnos.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txtexpalumno, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(txtcorreo, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(txtnomalumno, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+										.addGroup(gl_panelalumnos.createParallelGroup(Alignment.BASELINE)
+												.addComponent(btnAnadiralumno).addComponent(btnModificaralumn)
+												.addComponent(btnBorraralumn))
+										.addContainerGap()));
 
 		tablalumnos = new JTable();
 		tablalumnos.addMouseListener(new MouseAdapter() {
@@ -520,14 +584,12 @@ public class notas extends JFrame {
 				txtexpalumno.setText((String) dtmalumnos.getValueAt(tablalumnos.getSelectedRow(), 0));
 				txtnomalumno.setText((String) dtmalumnos.getValueAt(tablalumnos.getSelectedRow(), 1));
 				txtcorreo.setText((String) dtmalumnos.getValueAt(tablalumnos.getSelectedRow(), 2));
-				passalumn.setText((String) dtmalumnos.getValueAt(tablalumnos.getSelectedRow(), 3));
 
 			}
 		});
-		dtmalumnos = new DefaultTableModel(new Object[][] {}, new String[] { "N\u00BA Expediente",
-				"Nombre y apellidos alumno", "Correo_alumno", "Contrase\u00F1a alumno" });
+		dtmalumnos = new DefaultTableModel(new Object[][] {},
+				new String[] { "N\u00BA Expediente", "Nombre y apellidos alumno", "Correo_alumno" });
 		tablalumnos.setModel(dtmalumnos);
-
 		tablalumnos.getColumnModel().getColumn(1).setPreferredWidth(152);
 		tablalumnos.getColumnModel().getColumn(2).setPreferredWidth(130);
 		scrollPane_2.setViewportView(tablalumnos);
@@ -574,77 +636,69 @@ public class notas extends JFrame {
 
 		JButton btnBorrarnotmod = new JButton("Borrar");
 		GroupLayout gl_panelnotamodulo = new GroupLayout(panelnotamodulo);
-		gl_panelnotamodulo.setHorizontalGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelnotamodulo.createSequentialGroup().addGroup(gl_panelnotamodulo
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelnotamodulo.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-										.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
-										.addGroup(gl_panelnotamodulo.createSequentialGroup().addGroup(gl_panelnotamodulo
-												.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblIntroduzcaCurso_1)
-												.addComponent(comboBoxcurso, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtcursomod, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-												.addGap(130)
-												.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-														.addComponent(txtnommodulo,
-																GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addGroup(gl_panelnotamodulo.createSequentialGroup()
-																.addGroup(gl_panelnotamodulo
-																		.createParallelGroup(Alignment.LEADING)
-																		.addComponent(lblIntroduzcaNombreMdulo)
-																		.addComponent(comboBox_1,
-																				GroupLayout.PREFERRED_SIZE, 149,
-																				GroupLayout.PREFERRED_SIZE))
-																.addGap(70)
-																.addGroup(gl_panelnotamodulo
-																		.createParallelGroup(Alignment.LEADING)
-																		.addComponent(lblNewLabel).addComponent(txtexp,
-																				GroupLayout.PREFERRED_SIZE,
-																				GroupLayout.DEFAULT_SIZE,
-																				GroupLayout.PREFERRED_SIZE))
-																.addGap(92)
-																.addGroup(gl_panelnotamodulo
-																		.createParallelGroup(Alignment.LEADING)
-																		.addComponent(txtnotamod,
-																				GroupLayout.PREFERRED_SIZE,
-																				GroupLayout.DEFAULT_SIZE,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addComponent(lblNotaModulo)))))))
-						.addGroup(gl_panelnotamodulo.createSequentialGroup().addGap(235).addComponent(btnAnadirnotmod)
-								.addGap(18).addComponent(btnModificarnotmod).addGap(18).addComponent(btnBorrarnotmod)))
-						.addContainerGap()));
-		gl_panelnotamodulo.setVerticalGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelnotamodulo.createSequentialGroup().addContainerGap()
-						.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblIntroduzcaCurso_1).addComponent(lblIntroduzcaNombreMdulo)
-								.addComponent(lblNewLabel).addComponent(lblNotaModulo))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
-								.addComponent(comboBoxcurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtexp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtnotamod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtcursomod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtnommodulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-						.addGroup(
-								gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE).addComponent(btnAnadirnotmod)
-										.addComponent(btnModificarnotmod).addComponent(btnBorrarnotmod))
-						.addContainerGap()));
+		gl_panelnotamodulo.setHorizontalGroup(
+			gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelnotamodulo.createSequentialGroup()
+					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelnotamodulo.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
+								.addGroup(gl_panelnotamodulo.createSequentialGroup()
+									.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblIntroduzcaCurso_1)
+										.addComponent(comboBoxcurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtcursomod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(130)
+									.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(txtnommodulo)
+										.addComponent(lblIntroduzcaNombreMdulo)
+										.addComponent(comboBox_1, 0, 149, Short.MAX_VALUE))
+									.addGap(70)
+									.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(txtexp)
+										.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addGap(92)
+									.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
+										.addComponent(txtnotamod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNotaModulo)))))
+						.addGroup(gl_panelnotamodulo.createSequentialGroup()
+							.addGap(235)
+							.addComponent(btnAnadirnotmod)
+							.addGap(18)
+							.addComponent(btnModificarnotmod)
+							.addGap(18)
+							.addComponent(btnBorrarnotmod)))
+					.addContainerGap())
+		);
+		gl_panelnotamodulo.setVerticalGroup(
+			gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelnotamodulo.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblIntroduzcaCurso_1)
+						.addComponent(lblIntroduzcaNombreMdulo)
+						.addComponent(lblNewLabel)
+						.addComponent(lblNotaModulo))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboBoxcurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtexp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtnotamod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtcursomod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtnommodulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAnadirnotmod)
+						.addComponent(btnModificarnotmod)
+						.addComponent(btnBorrarnotmod))
+					.addContainerGap())
+		);
 
 		tablanotamodulo = new JTable();
 		tablanotamodulo.addMouseListener(new MouseAdapter() {

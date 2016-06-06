@@ -80,7 +80,7 @@ public class config extends JFrame {
 		txtContraseña.setColumns(10);
 
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(config.class.getResource("/imagenes/ICON.png")));
+		label.setIcon(new ImageIcon(config.class.getResource("/imagenes/anadir-mas-datos-de-base-icono-7011-48.png")));
 
 		JButton btnModificar = new JButton("modificar");
 		btnModificar.addActionListener(new ActionListener() {
