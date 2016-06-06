@@ -605,10 +605,24 @@ public class notas extends JFrame {
 		JLabel lblIntroduzcaNombreMdulo = new JLabel("Introduzca nombre m\u00F3dulo");
 
 		JComboBox comboBoxcurso = new JComboBox();
+		comboBoxcurso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object combomod = comboBoxcurso.getSelectedItem();
+				String res = String.valueOf(combomod);
+				txtcursomod.setText(res);
+			}
+		});
 		comboBoxcurso.setModel(new DefaultComboBoxModel(new String[] { "1\u00BA DAM", "2\u00BA DAM" }));
 
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "Bases de datos", "Sistemas Inform\u00E1ticos",
+		JComboBox combonommodd = new JComboBox();
+		combonommodd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object combomod = combonommodd.getSelectedItem();
+				String res = String.valueOf(combomod);
+				txtnommodulo.setText(res);
+			}
+		});
+		combonommodd.setModel(new DefaultComboBoxModel(new String[] { "Bases de datos", "Sistemas Inform\u00E1ticos",
 				"Programaci\u00F3n", "Lenguaje de marcas", "Entornos de desarrollo", "Acceso a datos",
 				"Desarrollo de interfaces", "Empresa e iniciativa emprendedora",
 				"Programaci\u00F3n de servicios y procesos", "Programaci\u00F3n multimedia y dispositivos m\u00F3viles",
@@ -631,74 +645,126 @@ public class notas extends JFrame {
 		txtnommodulo.setColumns(10);
 
 		btnAnadirnotmod = new JButton("A\u00F1adir");
+		btnAnadirnotmod.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object[] fila = { txtcursomod.getText(), txtnommodulo.getText(), txtexp.getText(),
+						txtnotamod.getText() };
+				dtmnotamod.addRow(fila);
+				setnotamod(txtcursomod.getText(), txtnommodulo.getText(), txtexp.getText(), txtnotamod.getText());
+				txtcursomod.setText("");
+				txtnommodulo.setText("");
+				txtexp.setText("");
+				txtnotamod.setText("");
+			}
+		});
 
 		btnModificarnotmod = new JButton("Modificar");
+		btnModificarnotmod.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tablanotamodulo.setValueAt(txtcursomod.getText(), tablanotamodulo.getSelectedRow(), 0);
+				tablanotamodulo.setValueAt(txtnommodulo.getText(), tablanotamodulo.getSelectedRow(), 1);
+				tablanotamodulo.setValueAt(txtexp.getText(), tablanotamodulo.getSelectedRow(), 2);
+				tablanotamodulo.setValueAt(txtnotamod.getText(), tablanotamodulo.getSelectedRow(), 3);
+				txtcursomod.setText("");
+				txtnommodulo.setText("");
+				txtexp.setText("");
+				txtnotamod.setText("");
+			}
+		});
 
 		JButton btnBorrarnotmod = new JButton("Borrar");
+		btnBorrarnotmod.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dtmnotamod.removeRow(tablanotamodulo.getSelectedRow());
+				txtcursomod.setText("");
+				txtnommodulo.setText("");
+				txtexp.setText("");
+				txtnotamod.setText("");
+			}
+		});
 		GroupLayout gl_panelnotamodulo = new GroupLayout(panelnotamodulo);
-		gl_panelnotamodulo.setHorizontalGroup(
-			gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelnotamodulo.createSequentialGroup()
-					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelnotamodulo.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-								.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
-								.addGroup(gl_panelnotamodulo.createSequentialGroup()
-									.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblIntroduzcaCurso_1)
-										.addComponent(comboBoxcurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtcursomod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGap(130)
-									.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(txtnommodulo)
-										.addComponent(lblIntroduzcaNombreMdulo)
-										.addComponent(comboBox_1, 0, 149, Short.MAX_VALUE))
-									.addGap(70)
-									.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(txtexp)
-										.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-									.addGap(92)
-									.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-										.addComponent(txtnotamod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblNotaModulo)))))
-						.addGroup(gl_panelnotamodulo.createSequentialGroup()
-							.addGap(235)
-							.addComponent(btnAnadirnotmod)
-							.addGap(18)
-							.addComponent(btnModificarnotmod)
-							.addGap(18)
-							.addComponent(btnBorrarnotmod)))
-					.addContainerGap())
-		);
-		gl_panelnotamodulo.setVerticalGroup(
-			gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelnotamodulo.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblIntroduzcaCurso_1)
-						.addComponent(lblIntroduzcaNombreMdulo)
-						.addComponent(lblNewLabel)
-						.addComponent(lblNotaModulo))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBoxcurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtexp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtnotamod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtcursomod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtnommodulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-					.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAnadirnotmod)
-						.addComponent(btnModificarnotmod)
-						.addComponent(btnBorrarnotmod))
-					.addContainerGap())
-		);
+		gl_panelnotamodulo
+				.setHorizontalGroup(
+						gl_panelnotamodulo.createParallelGroup(Alignment.LEADING).addGroup(gl_panelnotamodulo
+								.createSequentialGroup().addGroup(gl_panelnotamodulo
+										.createParallelGroup(
+												Alignment.LEADING)
+										.addGroup(
+												gl_panelnotamodulo.createSequentialGroup().addContainerGap()
+														.addGroup(gl_panelnotamodulo
+																.createParallelGroup(Alignment.LEADING)
+																.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE,
+																		805, Short.MAX_VALUE)
+																.addGroup(gl_panelnotamodulo.createSequentialGroup()
+																		.addGroup(gl_panelnotamodulo
+																				.createParallelGroup(Alignment.LEADING)
+																				.addComponent(lblIntroduzcaCurso_1)
+																				.addComponent(comboBoxcurso,
+																						GroupLayout.PREFERRED_SIZE,
+																						GroupLayout.DEFAULT_SIZE,
+																						GroupLayout.PREFERRED_SIZE)
+																				.addComponent(txtcursomod,
+																						GroupLayout.PREFERRED_SIZE,
+																						GroupLayout.DEFAULT_SIZE,
+																						GroupLayout.PREFERRED_SIZE))
+																		.addGap(130)
+																		.addGroup(gl_panelnotamodulo
+																				.createParallelGroup(Alignment.LEADING,
+																						false)
+																				.addComponent(txtnommodulo)
+																				.addComponent(lblIntroduzcaNombreMdulo)
+																				.addComponent(combonommodd, 0, 149,
+																						Short.MAX_VALUE))
+																		.addGap(70)
+																		.addGroup(gl_panelnotamodulo
+																				.createParallelGroup(Alignment.LEADING,
+																						false)
+																				.addComponent(txtexp)
+																				.addComponent(lblNewLabel,
+																						GroupLayout.DEFAULT_SIZE,
+																						GroupLayout.DEFAULT_SIZE,
+																						Short.MAX_VALUE))
+																		.addGap(92)
+																		.addGroup(gl_panelnotamodulo
+																				.createParallelGroup(Alignment.LEADING)
+																				.addComponent(txtnotamod,
+																						GroupLayout.PREFERRED_SIZE,
+																						GroupLayout.DEFAULT_SIZE,
+																						GroupLayout.PREFERRED_SIZE)
+																				.addComponent(lblNotaModulo)))))
+										.addGroup(gl_panelnotamodulo.createSequentialGroup().addGap(235)
+												.addComponent(btnAnadirnotmod).addGap(18)
+												.addComponent(btnModificarnotmod).addGap(18)
+												.addComponent(btnBorrarnotmod)))
+								.addContainerGap()));
+		gl_panelnotamodulo.setVerticalGroup(gl_panelnotamodulo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelnotamodulo.createSequentialGroup().addContainerGap()
+						.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblIntroduzcaCurso_1).addComponent(lblIntroduzcaNombreMdulo)
+								.addComponent(lblNewLabel).addComponent(lblNotaModulo))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
+								.addComponent(comboBoxcurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(combonommodd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtexp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtnotamod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtcursomod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtnommodulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+						.addGroup(
+								gl_panelnotamodulo.createParallelGroup(Alignment.BASELINE).addComponent(btnAnadirnotmod)
+										.addComponent(btnModificarnotmod).addComponent(btnBorrarnotmod))
+						.addContainerGap()));
 
 		tablanotamodulo = new JTable();
 		tablanotamodulo.addMouseListener(new MouseAdapter() {
@@ -724,8 +790,16 @@ public class notas extends JFrame {
 
 		JLabel lblIntroduzcaCurso_2 = new JLabel("Introduzca curso");
 
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] { "1\u00BA DAM", "2\u00BA DAM" }));
+		JComboBox combocursototal = new JComboBox();
+		combocursototal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object combomod = combocursototal.getSelectedItem();
+				String res = String.valueOf(combomod);
+				txtnotatotalcurso.setText(res);
+
+			}
+		});
+		combocursototal.setModel(new DefaultComboBoxModel(new String[] { "1\u00BA DAM", "2\u00BA DAM" }));
 
 		txtnotatotalcurso = new JTextField();
 		txtnotatotalcurso.setColumns(10);
@@ -738,13 +812,43 @@ public class notas extends JFrame {
 		txtnotatotal = new JTextField();
 		txtnotatotal.setColumns(10);
 
-		JLabel lblIntroduzcaNotaTotal = new JLabel("Introduzca nota total");
+		JLabel lblIntroduzcaNotaTotal = new JLabel("Introduzca nota media");
 
 		btnanadirnotatotal = new JButton("A\u00F1adir");
+		btnanadirnotatotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object[] fila = { txtnotatotalcurso.getText(), txtexpnotatotal.getText(), txtnotatotal.getText() };
+				dtmnotatotal.addRow(fila);
+				setnotatotal(txtnotatotalcurso.getText(), txtexpnotatotal.getText(), txtnotatotal.getText());
+				txtnotatotalcurso.setText("");
+				txtexpnotatotal.setText("");
+				txtnotatotal.setText("");
+
+			}
+		});
 
 		btnModificarnotatotal = new JButton("Modificar");
+		btnModificarnotatotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tablanotatotal.setValueAt(txtnotatotalcurso.getText(), tablanotatotal.getSelectedRow(), 0);
+				tablanotatotal.setValueAt(txtexpnotatotal.getText(), tablanotatotal.getSelectedRow(), 1);
+				tablanotatotal.setValueAt(txtnotatotal.getText(), tablanotatotal.getSelectedRow(), 2);
+				txtnotatotalcurso.setText("");
+				txtexpnotatotal.setText("");
+				txtnotatotal.setText("");
+			}
+		});
 
 		btnBorrarnotatotal = new JButton("Borrar");
+		btnBorrarnotatotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dtmnotatotal.removeRow(tablanotatotal.getSelectedRow());
+				txtcurso.setText("");
+				txtnotatotalcurso.setText("");
+				txtexpnotatotal.setText("");
+				txtnotatotal.setText("");
+			}
+		});
 		GroupLayout gl_panelnotatotal = new GroupLayout(panelnotatotal);
 		gl_panelnotatotal.setHorizontalGroup(gl_panelnotatotal.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelnotatotal.createSequentialGroup().addContainerGap()
@@ -753,7 +857,7 @@ public class notas extends JFrame {
 										.addGroup(gl_panelnotatotal.createParallelGroup(Alignment.LEADING)
 												.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 805,
 														Short.MAX_VALUE)
-												.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE,
+												.addComponent(combocursototal, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addContainerGap())
 								.addGroup(gl_panelnotatotal.createSequentialGroup()
@@ -786,8 +890,8 @@ public class notas extends JFrame {
 												.addComponent(lblIntroduzcaCurso_2).addComponent(lblNExpedientealumno)
 												.addComponent(lblIntroduzcaNotaTotal))
 										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
+										.addComponent(combocursototal, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.UNRELATED)
 										.addGroup(gl_panelnotatotal.createParallelGroup(Alignment.BASELINE)
 												.addComponent(txtnotatotalcurso, GroupLayout.PREFERRED_SIZE,
@@ -813,7 +917,7 @@ public class notas extends JFrame {
 			}
 		});
 		dtmnotatotal = new DefaultTableModel(new Object[][] {},
-				new String[] { "Curso", "N\u00BAExpediente/alumno", "Nota total" });
+				new String[] { "Curso", "N\u00BAExpediente/alumno", "Nota media" });
 		tablanotatotal.setModel(dtmnotatotal);
 
 		scrollPane_4.setViewportView(tablanotatotal);
