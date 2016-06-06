@@ -64,10 +64,11 @@ public class modelo {
 			String mi_url = geturlBBDD();
 
 			conexion = DriverManager.getConnection(mi_url, getUsuarioBBDD(), getContraseñaBBDD());
-			System.out.println("exito en la conexión");
+			JOptionPane.showMessageDialog(null, "Exito en la conexión con la BBDD", "",
+					JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
-			System.out.println("error en la conexión de la base de datos");
-
+			JOptionPane.showMessageDialog(null, "Error en la conexión con la BBDD", "",
+					JOptionPane.ERROR_MESSAGE);
 		} catch (ClassNotFoundException e) {
 			System.out.println("error en la conexión");
 		}

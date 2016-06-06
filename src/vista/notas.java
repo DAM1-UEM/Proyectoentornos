@@ -379,9 +379,9 @@ public class notas extends JFrame {
 				tablaprofesor.setValueAt(txtexprof.getText(), tablaprofesor.getSelectedRow(), 0);
 				tablaprofesor.setValueAt(txtnomprofe.getText(), tablaprofesor.getSelectedRow(), 1);
 				tablaprofesor.setValueAt(txtcorreoprof.getText(), tablaprofesor.getSelectedRow(), 2);
-				txtcurso.setText("");
-				txtnombremodulo.setText("");
-				txthoras.setText("");
+				txtexprof.setText("");
+				txtnomprofe.setText("");
+				txtcorreoprof.setText("");
 			}
 		});
 
@@ -389,9 +389,9 @@ public class notas extends JFrame {
 		btnBorrarprofe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dtmprofesores.removeRow(tablaprofesor.getSelectedRow());
-				txtcurso.setText("");
-				txtnombremodulo.setText("");
-				txthoras.setText("");
+				txtexprof.setText("");
+				txtnomprofe.setText("");
+				txtcorreoprof.setText("");
 			}
 		});
 		GroupLayout gl_panelprofesores = new GroupLayout(panelprofesores);
