@@ -88,7 +88,7 @@ public class registro extends JFrame {
 		setContentPane(contentPane);
 
 		lblSingIn = new JLabel("");
-		lblSingIn.setIcon(new ImageIcon(registro.class.getResource("/imagenes/ICON.png")));
+		lblSingIn.setIcon(new ImageIcon(registro.class.getResource("/imagenes/libros-de-la-biblioteca-icono-5623-48.png")));
 
 		lblNick = new JLabel("NICK*");
 
