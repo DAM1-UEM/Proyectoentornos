@@ -44,6 +44,9 @@ public class modelo {
 	private int usuariocodigo;
 	private String[][] tablamodulos;
 	private String[][] tablaprofesores;
+	private String[][] tablalumnos;
+	private String[][] tablanotamodulo;
+
 
 	public void setLogin(login login) {
 		this.log = login;
@@ -240,7 +243,35 @@ public class modelo {
 		} catch (SQLException s) {
 			s.printStackTrace();
 		}
-		nota.rellenarTabla();
+		nota.rellenarTablaprofes();
+	}
+	public void consultalumnos() {
+		try {
+			String nfilas = "Select count(*) from entornos.alumnos";
+			Statement stmt = conexion.createStatement();
+			ResultSet rset = stmt.executeQuery(nfilas);
+			rset.next();
+			int f = rset.getInt(1);
+
+			String query = "Select NUM_EXPEDIENTEALUMN , NOMBREYAPELLIDOSALUMNO , CORREO_ALUMNO from entornos.alumnos";
+			stmt = conexion.createStatement();
+			rset = stmt.executeQuery(query);
+			ResultSetMetaData rsmd = rset.getMetaData();
+			int c = rsmd.getColumnCount();
+			int i = 0;
+			tablalumnos = new String[f][c];
+			while (rset.next()) {
+				for (int j = 0; j < c; j++) {
+					tablalumnos[i][j] = rset.getString(j + 1);
+				}
+				i++;
+			}
+			rset.close();
+			stmt.close();
+		} catch (SQLException s) {
+			s.printStackTrace();
+		}
+		nota.rellenarTablaalumnos();
 	}
 	public void consultamodulos() {
 		try {
@@ -270,7 +301,33 @@ public class modelo {
 		}
 		nota.rellenarTablamodulos();
 	}
-
+	public void consultanotamodulos() {
+		try {
+			String nfilas = "Select count(*) from entornos.notas";
+			Statement stmt = conexion.createStatement();
+			ResultSet rset = stmt.executeQuery(nfilas);
+			rset.next();
+			int f = rset.getInt(1);
+			String query = "Select curso , nombre_modulo , ALUMNOS_NUM_EXPEDIENTEALUMN, nota from entornos.módulos m, entornos.notas n where n.cod_notas=m.NOTA_COD_NOTA";
+			stmt = conexion.createStatement();
+			rset = stmt.executeQuery(query);
+			ResultSetMetaData rsmd = rset.getMetaData();
+			int c = rsmd.getColumnCount();
+			int i = 0;
+			tablanotamodulo = new String[f][c];
+			while (rset.next()) {
+				for (int j = 0; j < c; j++) {
+					tablanotamodulo[i][j] = rset.getString(j + 1);
+				}
+				i++;
+			}
+			rset.close();
+			stmt.close();
+		} catch (SQLException s) {
+			s.printStackTrace();
+		}
+		nota.rellenarTablanotamodulos();
+	}
 
 	public String[][] getprofesor() {
 		return tablaprofesores;
@@ -278,6 +335,14 @@ public class modelo {
 
 	public String[][] getmodulos() {
 		return tablamodulos;
+	}
+
+	public String[][] getalumnos() {
+		return tablalumnos;
+	}
+
+	public String[][] getnotaalumnos() {
+		return tablanotamodulo;
 	}
 
 }

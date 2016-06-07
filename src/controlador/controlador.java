@@ -40,6 +40,12 @@ public class controlador {
 	public void cargarmodulos() {
 		modelo.consultamodulos();
 	}
+	public void cargaralumnos() {
+		modelo.consultalumnos();
+	}
+	public void cargarnotaalumnos() {
+		modelo.consultanotamodulos();
+	}
 
 	public void modificarBBDD() {
 		String usu = con.getUsu();

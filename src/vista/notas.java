@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
@@ -136,6 +137,8 @@ public class notas extends JFrame {
 			public void windowOpened(WindowEvent e) {
 				con.cargarprofesores();
 				con.cargarmodulos();
+				con.cargaralumnos();
+				con.cargarnotaalumnos();
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -222,6 +225,8 @@ public class notas extends JFrame {
 				txtnombremodulo.setText("");
 				txthoras.setText("");
 				txtexprofesor.setText("");
+				JOptionPane.showMessageDialog(null, "Añadido!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 
 			}
 		});
@@ -237,6 +242,8 @@ public class notas extends JFrame {
 				txtnombremodulo.setText("");
 				txthoras.setText("");
 				txtexprofesor.setText("");
+				JOptionPane.showMessageDialog(null, "Modificado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 
@@ -248,6 +255,8 @@ public class notas extends JFrame {
 				txtnombremodulo.setText("");
 				txthoras.setText("");
 				txtexprofesor.setText("");
+				JOptionPane.showMessageDialog(null, "Borrado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 		GroupLayout gl_panelmodulos = new GroupLayout(panelmodulos);
@@ -378,6 +387,8 @@ public class notas extends JFrame {
 				txtexprof.setText("");
 				txtnomprofe.setText("");
 				txtcorreoprof.setText("");
+				JOptionPane.showMessageDialog(null, "Añadido!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 
@@ -390,6 +401,8 @@ public class notas extends JFrame {
 				txtexprof.setText("");
 				txtnomprofe.setText("");
 				txtcorreoprof.setText("");
+				JOptionPane.showMessageDialog(null, "Modificado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 
@@ -400,6 +413,8 @@ public class notas extends JFrame {
 				txtexprof.setText("");
 				txtnomprofe.setText("");
 				txtcorreoprof.setText("");
+				JOptionPane.showMessageDialog(null, "Borrado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 		GroupLayout gl_panelprofesores = new GroupLayout(panelprofesores);
@@ -494,6 +509,8 @@ public class notas extends JFrame {
 				txtexpalumno.setText("");
 				txtnomalumno.setText("");
 				txtcorreo.setText("");
+				JOptionPane.showMessageDialog(null, "Añadido!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 
@@ -506,6 +523,8 @@ public class notas extends JFrame {
 				txtexpalumno.setText("");
 				txtnomalumno.setText("");
 				txtcorreo.setText("");
+				JOptionPane.showMessageDialog(null, "Modificado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 
@@ -516,6 +535,8 @@ public class notas extends JFrame {
 				txtexpalumno.setText("");
 				txtnomalumno.setText("");
 				txtcorreo.setText("");
+				JOptionPane.showMessageDialog(null, "Borrado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 		GroupLayout gl_panelalumnos = new GroupLayout(panelalumnos);
@@ -663,6 +684,8 @@ public class notas extends JFrame {
 				txtnommodulo.setText("");
 				txtexp.setText("");
 				txtnotamod.setText("");
+				JOptionPane.showMessageDialog(null, "Añadido!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 
@@ -677,6 +700,8 @@ public class notas extends JFrame {
 				txtnommodulo.setText("");
 				txtexp.setText("");
 				txtnotamod.setText("");
+				JOptionPane.showMessageDialog(null, "Modificado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 
@@ -688,6 +713,8 @@ public class notas extends JFrame {
 				txtnommodulo.setText("");
 				txtexp.setText("");
 				txtnotamod.setText("");
+				JOptionPane.showMessageDialog(null, "Borrado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 		GroupLayout gl_panelnotamodulo = new GroupLayout(panelnotamodulo);
@@ -831,6 +858,7 @@ public class notas extends JFrame {
 				txtnotatotalcurso.setText("");
 				txtexpnotatotal.setText("");
 				txtnotatotal.setText("");
+				JOptionPane.showMessageDialog(null, "Añadido!!", "", JOptionPane.INFORMATION_MESSAGE);
 
 			}
 		});
@@ -844,6 +872,8 @@ public class notas extends JFrame {
 				txtnotatotalcurso.setText("");
 				txtexpnotatotal.setText("");
 				txtnotatotal.setText("");
+				JOptionPane.showMessageDialog(null, "Modificado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 
@@ -855,6 +885,8 @@ public class notas extends JFrame {
 				txtnotatotalcurso.setText("");
 				txtexpnotatotal.setText("");
 				txtnotatotal.setText("");
+				JOptionPane.showMessageDialog(null, "Borrado!!", "", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		});
 		GroupLayout gl_panelnotatotal = new GroupLayout(panelnotatotal);
@@ -933,7 +965,7 @@ public class notas extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public void rellenarTabla() {
+	public void rellenarTablaprofes() {
 		String[][] tabla = mod.getprofesor();
 		DefaultTableModel modelo = (DefaultTableModel) tablaprofesor.getModel();
 		for (int i = 0; i < tabla.length; i++) {
@@ -949,5 +981,24 @@ public class notas extends JFrame {
 			modelo.addRow(tabla[i]);
 
 		}
+	}
+
+	public void rellenarTablaalumnos() {
+		String[][] tabla = mod.getalumnos();
+		DefaultTableModel modelo = (DefaultTableModel) tablalumnos.getModel();
+		for (int i = 0; i < tabla.length; i++) {
+			modelo.addRow(tabla[i]);
+
+		}
+	}
+
+	public void rellenarTablanotamodulos() {
+		String[][] tabla = mod.getnotaalumnos();
+		DefaultTableModel modelo = (DefaultTableModel) tablanotamodulo.getModel();
+		for (int i = 0; i < tabla.length; i++) {
+			modelo.addRow(tabla[i]);
+
+		}
+		
 	}
 }
