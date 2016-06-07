@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -41,6 +42,8 @@ public class modelo {
 	private Properties propiedades;
 	private config con;
 	private int usuariocodigo;
+	private String[][] tablamodulos;
+	private String[][] tablaprofesores;
 
 	public void setLogin(login login) {
 		this.log = login;
@@ -67,8 +70,7 @@ public class modelo {
 			JOptionPane.showMessageDialog(null, "Exito en la conexión con la BBDD", "",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Error en la conexión con la BBDD", "",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error en la conexión con la BBDD", "", JOptionPane.ERROR_MESSAGE);
 		} catch (ClassNotFoundException e) {
 			System.out.println("error en la conexión");
 		}
@@ -210,6 +212,72 @@ public class modelo {
 
 		}
 
+	}
+
+	public void consultaProfesores() {
+		try {
+			String nfilas = "Select count(*) from entornos.PROFESORES";
+			Statement stmt = conexion.createStatement();
+			ResultSet rset = stmt.executeQuery(nfilas);
+			rset.next();
+			int f = rset.getInt(1);
+
+			String query = "Select cod_profesor , nombreyapellidos_profesor , correo_profesor from entornos.profesores";
+			stmt = conexion.createStatement();
+			rset = stmt.executeQuery(query);
+			ResultSetMetaData rsmd = rset.getMetaData();
+			int c = rsmd.getColumnCount();
+			int i = 0;
+			tablaprofesores = new String[f][c];
+			while (rset.next()) {
+				for (int j = 0; j < c; j++) {
+					tablaprofesores[i][j] = rset.getString(j + 1);
+				}
+				i++;
+			}
+			rset.close();
+			stmt.close();
+		} catch (SQLException s) {
+			s.printStackTrace();
+		}
+		nota.rellenarTabla();
+	}
+	public void consultamodulos() {
+		try {
+			String nfilas = "Select count(*) from entornos.módulos";
+			Statement stmt = conexion.createStatement();
+			ResultSet rset = stmt.executeQuery(nfilas);
+			rset.next();
+			int f = rset.getInt(1);
+
+			String query = "Select curso , nombre_modulo , horas_semanales, profesores_cod_profesor from entornos.módulos m, entornos.profesores p where p.cod_profesor=m.profesores_cod_profesor";
+			stmt = conexion.createStatement();
+			rset = stmt.executeQuery(query);
+			ResultSetMetaData rsmd = rset.getMetaData();
+			int c = rsmd.getColumnCount();
+			int i = 0;
+			tablamodulos = new String[f][c];
+			while (rset.next()) {
+				for (int j = 0; j < c; j++) {
+					tablamodulos[i][j] = rset.getString(j + 1);
+				}
+				i++;
+			}
+			rset.close();
+			stmt.close();
+		} catch (SQLException s) {
+			s.printStackTrace();
+		}
+		nota.rellenarTablamodulos();
+	}
+
+
+	public String[][] getprofesor() {
+		return tablaprofesores;
+	}
+
+	public String[][] getmodulos() {
+		return tablamodulos;
 	}
 
 }

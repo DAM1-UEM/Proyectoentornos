@@ -33,6 +33,14 @@ public class controlador {
 		this.notas = nota;
 	}
 
+	public void cargarprofesores() {
+		modelo.consultaProfesores();
+	}
+
+	public void cargarmodulos() {
+		modelo.consultamodulos();
+	}
+
 	public void modificarBBDD() {
 		String usu = con.getUsu();
 		String contra = con.getContra();

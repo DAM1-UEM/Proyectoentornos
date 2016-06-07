@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -130,6 +132,12 @@ public class notas extends JFrame {
 	}
 
 	public notas() {
+		addWindowListener(new WindowAdapter() {
+			public void windowOpened(WindowEvent e) {
+				con.cargarprofesores();
+				con.cargarmodulos();
+			}
+		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 856, 538);
 		contentPane = new JPanel();
@@ -923,5 +931,23 @@ public class notas extends JFrame {
 		scrollPane_4.setViewportView(tablanotatotal);
 		panelnotatotal.setLayout(gl_panelnotatotal);
 		contentPane.setLayout(gl_contentPane);
+	}
+
+	public void rellenarTabla() {
+		String[][] tabla = mod.getprofesor();
+		DefaultTableModel modelo = (DefaultTableModel) tablaprofesor.getModel();
+		for (int i = 0; i < tabla.length; i++) {
+			modelo.addRow(tabla[i]);
+
+		}
+	}
+
+	public void rellenarTablamodulos() {
+		String[][] tabla = mod.getmodulos();
+		DefaultTableModel modelo = (DefaultTableModel) tablamodulos.getModel();
+		for (int i = 0; i < tabla.length; i++) {
+			modelo.addRow(tabla[i]);
+
+		}
 	}
 }
