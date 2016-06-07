@@ -35,6 +35,7 @@ public class notas extends JFrame {
 
 	private JPanel contentPane;
 	private modelo mod;
+	private login log;
 	private controlador con;
 	private JTable tablaprofesor;
 	private JTable tablamodulos;
@@ -150,6 +151,12 @@ public class notas extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
 		JButton btnvolver = new JButton("");
+		btnvolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+				con.mostrarventanalogin();
+			}
+		});
 		btnvolver.setIcon(new ImageIcon(notas.class.getResource("/imagenes/back.png")));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
